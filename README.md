@@ -7,4 +7,4 @@
 </div>
 
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/GonzaloPerez1/Libreria-python/LICENSE.txt
+[license-url]: https://github.com/GonzaloPerez1/Libreria-python/blob/main/License.txt
