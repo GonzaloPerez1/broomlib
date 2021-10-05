@@ -1,3 +1,3 @@
-from nombre_libreria.limpieza import *
-from nombre_libreria.visualization import *
-from nombre_libreria.machine_learning import *
+from broomlib.cleaning import *
+from broomlib.visualization import *
+from broomlib.machine_learning import *
