@@ -5,6 +5,11 @@ import seaborn as sns
 import scipy as sp
 from scipy.stats import chi2
 from .utils import *
+from sklearn import datasets
+from scipy.stats import chi2
+import statsmodels.api as sm
+from adjustText import adjust_text
+from sklearn import datasets
 
 
 def missing_bars(data,figsize=(10, 3), style='ggplot'):
@@ -245,4 +250,101 @@ def grid_cat_target_bars(df, target, n_categories=10, figsize=(12, 4), cols=3, b
         sns.despine(left=True, bottom=False)
         plt.subplots_adjust(hspace=y_space, wspace=0.2)
          
+    return plt.show()
+
+
+
+def corr_bars(data, threshold, figsize=(10, 3), style='ggplot'):
+    """
+    -----------
+    Function description:
+    Presents a Pandas horizontal bar plot of the most correlated feature pairs and their correlation coefficient
+    Function works with numerical features.
+    -----------
+    Parameters:
+    param data: The DataFrame
+    param threshold(float): cut off point for the value of the correlation coefficient which points out that there is a significant correlation between two features.
+    param figsize(tuple): The size of the figure to display. This is a  ‘matplotlib’ parameter which defaults to (12, 4)
+    param style(str): The style of the figure to display. A ‘matplotlib’ parameter which defaults to ‘ggplot’
+    -----------
+    Returns:
+    figure
+    -----------
+    Example:       
+    mpg = sns.load_dataset('mpg')
+    corr_bars(mpg, 0.6, figsize= (13, 6))
+    """
+
+    threshold = threshold
+    corr_orden = pd.DataFrame(data.corr().unstack().sort_values(ascending=False).drop_duplicates())
+    corr_orden.rename({0 : 'Correlation'}, axis=1, inplace=True)
+    corr_orden.reset_index(inplace=True)
+    corr_orden['label'] = corr_orden['level_0'] + ' + ' + corr_orden['level_0']
+    corr_orden
+    corr_orden['abs'] = abs(corr_orden['Correlation'])
+    corr_orden.sort_values(by='abs')
+    corr_orden.drop(columns=['level_0', 'level_1'], inplace=True)
+    corr_orden = corr_orden[corr_orden['abs'] >= threshold]
+    
+    with plt.style.context(style):
+        ax = corr_orden[['label', 'Correlation']].sort_index(ascending=False).plot(kind='barh', x= 'label', figsize = figsize)
+        plt.ylabel('')
+        for p in ax.patches:
+            width = p.get_width()
+            x = p.get_x()
+            y = p.get_y()
+            height = p.get_height()
+            ax.text(x + width/2., y + height/2., str(round((width) * 100, 2)) + '%',
+                        fontsize=10, va="center", ha='center', color='white', fontweight='bold')
+    return plt.show()
+
+
+
+def outliers_mahalanobis_plot(x = None, extreme_points = 10, style = 'ggplot', figsize = (15,7)):
+    """
+    -----------
+    Function description:
+    Shows outliers of dataset. It compares Mahalanobis Distance of each point to Chi Square Distribution. 
+    Points with index are the most extreme points (outliers) in the dataset. 
+    Function works with numerical features.
+    -----------
+    Parameters:
+    param x(DataFrame): The DataFrame (doesn't work fine with too many rows, 25000 or more)
+    param extreme_points(int): Number of outliers that user can visualize (with index). A parameter which defaults to 10.
+    param figsize(tuple): The size of the figure to display. This is a  'matplotlib' parameter which defaults to (15, 7)
+    param style(str): The style of the figure to display. A 'matplotlib' parameter which defaults to 'ggplot'
+    -----------
+    Returns:
+    figure
+    -----------
+    Example:
+    diabetes = datasets.load_diabetes()
+    df = pd.DataFrame(diabetes.data)
+    outliers_mahalanobis(x = df)
+    """
+
+    dif = x - np.mean(x)
+    cov = np.cov(x.T)
+    inv = sp.linalg.inv(cov)
+    izda = np.dot(dif, inv)
+	
+    dist = np.dot(izda, dif.T).diagonal()
+    
+    ppoints = np.linspace(0.001,0.999, x.shape[0])
+    x['maha'] = dist
+    maha_order = -np.sort(-x['maha'])
+    extreme = x[x['maha'].isin(maha_order[:extreme_points])].sort_values(by = 'maha', ascending = False)
+    extreme['chi'] = -np.sort(-chi2.ppf(ppoints, x.shape[1]))[:extreme_points]
+    
+    with plt.style.context(style):
+        plt.figure(figsize=figsize)
+        ax = sns.scatterplot(x = chi2.ppf(ppoints, x.shape[1]), y = np.sort(dist));
+        texto_puntos = [ax.text(extreme.chi.iloc[i], extreme.maha.iloc[i], txt, fontsize = 15)
+                       for i, txt in enumerate(extreme.index)]
+        adjust_text(texto_puntos)
+        
+        plt.title(r'QQPlot: Mahalanobis $D^2$ vs Quantiles $\chi^2(number \ of \ variables)$')
+        plt.xlabel(r'Quantiles of $\chi^2$')
+        plt.ylabel('Mahalanobis Distance')
+    
     return plt.show()
