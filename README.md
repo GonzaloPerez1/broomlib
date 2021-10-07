@@ -7,7 +7,7 @@
 
 # Broomlib 
 ## Description 
-This package probably does stuff
+A package to analyze datasets and plot the numerical and categorical features in a set of data quickly and efficiently. 
 ***
 ## Installation
 To install this package use `pip install broomlib`
