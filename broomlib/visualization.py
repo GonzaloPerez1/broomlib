@@ -70,7 +70,7 @@ def missings_heatmap(df, figsize=(12, 10), style='ggplot', cmap='RdYlBu'):
     missings_heatmap(titanic, figsize=(6, 4), style='ggplot', cmap='RdYlBu')
     """
     
-    df = df.iloc[:, [i for i, n in enumerate(np.var(data.isnull(), axis='rows')) if n > 0]]
+    df = df.iloc[:, [i for i, n in enumerate(np.var(df.isnull(), axis='rows')) if n > 0]]
     corr_mat = df.isnull().corr()
     mask = np.zeros_like(corr_mat)
     mask[np.triu_indices_from(mask)] = True
