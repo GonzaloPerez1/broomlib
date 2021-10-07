@@ -1,5 +1,6 @@
 from .utils import *
 import pandas as pd
+import numpy as np
 
 def show_all(df, big_desc = False):
     """
@@ -135,3 +136,55 @@ def how_missing(df,threshold = 0.0, drop = False):
     
     else:
         return print('ValueError: Threshold must be >= 0, and <= 100, try it again')
+    
+    
+
+
+def checking_duplicates(df, col):
+    """
+    This function's objective is to check if there is some duplicated values due to capital/small letters in a column made of strings. 
+    
+    For example: 'Spain' and 'spain'.
+    
+    Parameters:
+        - df: it is the name of the database,
+        - col: this is the name of the column that will be checked. The elements of this columns should be strings.
+        
+    The function will return which values are duplicated in the column. If there are no duplicate, it will return this information.  
+    """
+    
+    lower_transformation = pd.DataFrame(df[col].str.lower().value_counts().reset_index())
+    
+    duplicates = False
+    
+    for i in range(0, len(lower_transformation.index)):
+        for j in range(1,2):
+            if lower_transformation.iloc[i, j] > 1:
+                duplicates = True
+                print(lower_transformation.iloc[i, 0], "is present", lower_transformation.iloc[i,j], "times in the column", col,".")
+    
+    if duplicates == True:
+        print("There are no other duplicate values.")
+        
+    elif duplicates == False:
+        print("There are no duplicates in the column", col,".")
+        
+
+def building_date(year, month, day, df):
+    """
+    It creates a single column with the date from 3 distinct columns where are the years, months and days.
+    
+    Arguments:
+        - year: it is the name of the column where the years are showed. The values are to be integers,
+        - month: it is the name of the column where the months are showed. The values can be strings with the name of the month written in English or integers between 1 and 12,
+        - day: it is the name of the column where the days are showed. The values are to be integers between 1 and 31 according to the month,
+        - df: it is the name of the dataframe.
+    
+    The function will return the dataframe with a new column 'Parsing date' in the datetime64 type. It will remove the columns with the years, months and days.
+    """
+    
+    df["Parsing date"] = pd.to_datetime(df[year].astype(str) + '/' + df[month].astype(str) + '/' + df[day].astype(str))
+    
+    df = df.drop(columns=[year, month, day])
+    
+    return df
