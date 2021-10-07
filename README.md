@@ -28,21 +28,21 @@ Here is a brief overview of the functions available in this package. To further 
 
 ### Data Cleaning
 * <a href = #show_all>show_all</a> 
-* [data_report](#data_report) 
-* [how_missing](#how_missing)
-* [checking_duplicates](#checking_duplicates)
-* [building_date](#building_date)
+* <a href = #data_report>data_report</a> 
+* <a href = #how_missing>how_missing</a>
+* <a href = #checking_duplicates>checking_duplicates</a>
+* <a href = #building_date>building_date</a>
 
 ### Visualization 
 
-* [missing_bars](#missing_bars)
-* [missings_heatmap](#missings_heatmap)
-* [grid_displots](#grid_displots)
-* [grid_boxplots](#grid_boxplots)
-* [grid_cat_bars](#grid_cat_bars)
-* [grid_cat_target_bars](#grid_cat_target_bars)
-* [corr_bars](#corr_bars)
-* [outliers_mahalanobis_plot](#outliers_mahanalobis_plot)
+* <a href = #missing_bars>missing_bars</a>
+* <a href = #missings_heatmap>missings_heatmap</a>
+* <a href = #grid_displots>grid_displots</a>
+* <a href = #grid_boxplots>grid_boxplots</a>
+* <a href = #grid_cat_bars>grid_cat_bars</a>
+* <a href = #grid_cat_target_bars>grid_cat_target_bars></a>
+* <a href = #corr_bars>corr_bars</a>
+* <a href = #outliers_mahalanobis_plot>outliers_mahanalobis_plot</a>
 ***
 ## Documentation
 ### **Data Cleaning**
@@ -63,6 +63,7 @@ Otherwise returns the info, shape of each row and the pandas [describe](https://
 ****
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
 
+<a name = 'data_report'></a>
 #### **data_report** *(`df = None`)*
 Shows a small summary of the type, percentage of missings, unique values ad cardinality of each column.
 
@@ -75,7 +76,7 @@ Shows a small summary of the type, percentage of missings, unique values ad card
 Datafrane with the types, percentage of missings, unique values and cardinality of each column.
 ***
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
-
+<a name = 'how_missing'></a>
 #### **how_missing** *(`df = None`, `threshold = 0.0`, `drop = False`)*
 Shows the percentage of missing values. Optional: establish a lower threshold for the values to be displayed and delete the columns meeting this criteria. 
 
@@ -90,7 +91,7 @@ Dataframe with the name of the columns and the percentage of missings in each.
 
 ***
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
-
+<a name = 'checking_duplicates'></a>
 #### **checking_duplicates** *(`df = None`, `col = None`)*
 Checks if there are duplicate values due to capitalization in a column of strings. (E.g: 'Spain' and 'spain')
 
@@ -105,7 +106,7 @@ The duplicate values. If none exist, it will display a message stating so.
 
 ***
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
-
+<a name = 'building_date'></a>
 #### **building_date** *(`year = None`, `month = None`, `day = None`, `df = None`)*
 
 Combines separate year, month and day columns into a single date column. 
