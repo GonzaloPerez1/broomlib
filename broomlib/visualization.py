@@ -11,7 +11,7 @@ def missing_bars(data,figsize=(10, 3), style='ggplot'):
     """
     -----------
     Function description:
-    Presents a ‘pandas’ barplot with the frecuency of missing for each feature
+    Presents a ‘pandas’ barh plot with the percentage of missings for each feature
     -----------
     Parameters:
     param df(DataFrame): The DataFrame
@@ -20,6 +20,10 @@ def missing_bars(data,figsize=(10, 3), style='ggplot'):
     -----------
     Returns:
     figure
+    -----------
+    Example:
+    titanic = sns.load_dataset("titanic")
+    missing_bars(titanic, figsize=(10, 3), style='ggplot')
     """
     with plt.style.context(style):
         fig = plt.figure(figsize=figsize)
@@ -46,7 +50,7 @@ def missing_bars(data,figsize=(10, 3), style='ggplot'):
 
 
 
-def missings_heatmap(df, figsize=(12, 12), style='ggplot', cmap=’RdYlBu’):   
+def missings_heatmap(df, figsize=(12, 10), style='ggplot', cmap='RdYlBu'):   
     """
     -----------
     Function description:
@@ -60,9 +64,13 @@ def missings_heatmap(df, figsize=(12, 12), style='ggplot', cmap=’RdYlBu’):
     -----------
     Returns:
     figure
+    -----------
+    Example:
+    titanic = sns.load_dataset("titanic")
+    missings_heatmap(titanic, figsize=(6, 4), style='ggplot', cmap='RdYlBu')
     """
     
-    df = df.iloc[:, [i for i, n in enumerate(np.var(data.isnull(), axis='rows')) if n > 0]]
+    df = df.iloc[:, [i for i, n in enumerate(np.var(df.isnull(), axis='rows')) if n > 0]]
     corr_mat = df.isnull().corr()
     mask = np.zeros_like(corr_mat)
     mask[np.triu_indices_from(mask)] = True
@@ -93,6 +101,10 @@ def grid_displots(df, figsize=(12, 4), cols=3, bins=20, style='ggplot', fontsize
     -----------
     Returns:
     figure
+    -----------
+    Example:        
+    tips = sns.load_dataset('tips')
+    grid_displots(tips, figsize=(15, 3), cols=3, bins=20, fontsize=15, y_space=0.5, style='ggplot',)
     """
     
     df = df.loc[:, (df.dtypes == 'int64') | (df.dtypes == 'float64') | (df.dtypes == 'int32')]
@@ -125,18 +137,22 @@ def grid_boxplots(df, figsize=(15, 15), cols=3, bins=20, style='ggplot', fontsiz
     param style(str): The style of the figure to display. A ‘matplotlib’ parameter which defaults to ‘ggplot’
     param fontsize(int): The figure's font size. This default to 12
     param y_space(float):space between rows
-    param whis(float): The position of the whiskers.
-    The lower whisker is at the lowest datum above Q1 - whis*(Q3-Q1), and the upper whisker at the highest datum below Q3 + whis*(Q3-Q1), where Q1 and Q3 are the first and third quartiles. The default value of whis = 1.5 corresponds to Tukey's original definition of boxplots>
+    param whis(float): The position of the whiskers
+    The lower whisker is at the lowest datum above Q1 - whis*(Q3-Q1), and the upper whisker at the highest datum below Q3 + whis*(Q3-Q1), where Q1 and Q3 are the first and third quartiles. The default value of whis = 1.5 corresponds to Tukey's original definition of boxplots
      -----------
     Returns:
     figure
+    -----------
+    Example:
+    tips = sns.load_dataset('tips')
+    grid_boxplots(tips, figsize=(15, 3), cols=3, bins=20, fontsize=15, y_space=0.5, style='ggplot')
     """
     df= df.loc[:, (df.dtypes == 'int64') | (df.dtypes == 'float64') | (df.dtypes == 'int32')]
     rows = int(np.ceil(float(df.shape[1]) / cols))
 
     with plt.style.context(style):
         fig = plt.figure(figsize=figsize)
-        for i, column in enumerate(data.columns):
+        for i, column in enumerate(df.columns):
             ax = fig.add_subplot(rows, cols, i + 1)
             ax.set_title(column, fontsize=fontsize, pad=10)
             sns.boxplot(data=df[column], ax=ax, whis=whis)
@@ -165,6 +181,10 @@ def grid_cat_bars(df, n_categories=10 ,figsize=(12, 4), cols=3, bins=20, style='
     -----------
     Returns:
     figure
+    -----------
+    Example:        
+    tips = sns.load_dataset('tips')
+    grid_cat_bars(tips, figsize=(15, 10), cols=3, fontsize=15, y_space=0.35, style='ggplot',)
     """
     
     df = df.loc[:, (df.dtypes == 'object') | (df.dtypes == 'category')]
@@ -186,9 +206,7 @@ def grid_cat_bars(df, n_categories=10 ,figsize=(12, 4), cols=3, bins=20, style='
 
 
 
-
-
-def grid_cat_target_bars(df, target, n_categories=10 ,figsize=(12, 4), cols=3, bins=20, style='ggplot', fontsize=12, y_space=0.35):
+def grid_cat_target_bars(df, target, n_categories=10, figsize=(12, 4), cols=3, bins=20, style='ggplot', fontsize=12, y_space=0.35):
     """
     -----------
     Function description:
@@ -206,6 +224,10 @@ def grid_cat_target_bars(df, target, n_categories=10 ,figsize=(12, 4), cols=3, b
     -----------
     Returns:
     figure
+    -----------
+    Example:       
+    titanic = sns.load_dataset("titanic")
+    grid_cat_target_bars(titanic, target=titanic['survived'], figsize=(15, 10), cols=3, fontsize=15, y_space=0.55, style='ggplot')
     """
     
     df = df.loc[:, (df.dtypes == 'object') | (df.dtypes == 'category')]
