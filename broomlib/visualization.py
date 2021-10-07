@@ -1,9 +1,5 @@
 from .utils import *
 
-def comentarios():
-  
-  pass
-
 
 def missing_bars(data,figsize=(10, 3), style='ggplot'):
     """
