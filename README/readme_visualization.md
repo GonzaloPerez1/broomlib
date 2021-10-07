@@ -9,7 +9,7 @@ titanic = sns.load_dataset("titanic")
 bl.missing_bars(titanic, figsize=(10, 3), style='ggplot')
 ```
 
-![](images\missing_bars.png)
+![](images/missing_bars.png)
 
 <p><br></p>
 
@@ -23,7 +23,7 @@ titanic = sns.load_dataset("titanic")
 bl.missing_heatmap(titanic, figsize=(6, 4), style='ggplot', cmap='RdYlBu_r')
 ```
 
-![](images\missing_matrix.png)
+![](images/missing_matrix.png)
 
 <p><br></p>
 
@@ -37,7 +37,7 @@ titanic = sns.load_dataset("titanic")
 bl.missing_heatmap(titanic, figsize=(6, 4), style='ggplot', cmap='RdYlBu_r')
 ```
 
-![](images\missing_heatmap.png)
+![](images/missing_heatmap.png)
 
 <p><br></p>
 
@@ -52,7 +52,7 @@ tips = sns.load_dataset('tips')
 bl.grid_displots(tips, figsize=(15, 3), cols=3, bins=20, fontsize=15, y_space=0.5, style='ggplot')
 ```
 
-![](images\grid_displots.png)
+![](images/grid_displots.png)
 
 <p><br></p>
 
@@ -66,7 +66,7 @@ tips = sns.load_dataset('tips')
 bl.grid_boxplots(tips, figsize=(12, 3), cols=3, bins=20, fontsize=15, y_space=0.5, style='ggplot')
 ```
 
-![](images\grid_boxplots.png)
+![](images/grid_boxplots.png)
 
 <p><br></p>
 
@@ -81,7 +81,7 @@ tips = sns.load_dataset('tips')
 bl.grid_cat_bars(tips, figsize=(12, 8), cols=2, fontsize=15, y_space=0.5, style='ggplot')
 ```
 
-![](images\grid_cat_bars.png)
+![](images/grid_cat_bars.png)
 
 <p><br></p>
 
@@ -96,7 +96,7 @@ titanic = sns.load_dataset("titanic")
 bl.grid_cat_target_bars(titanic, target=titanic['survived'], figsize=(15, 12), cols=3, fontsize=15, y_space=0.55, style='ggplot')
 ```
 
-![](images\grid_cat_target_bars.png)
+![](images/grid_cat_target_bars.png)
 
 <p><br></p>
 
@@ -111,7 +111,7 @@ mpg = sns.load_dataset('mpg')
 bl.corr_bars(mpg, threshold=0.6, figsize=(13, 6))
 ```
 
-![](images\corr_bars.png)
+![](images/corr_bars.png)
 
 <p><br></p>
 
@@ -128,7 +128,7 @@ df = pd.DataFrame(diabetes.data)
 bl.outliers_mahalanobis_plot(df, extreme_points=10, figsize=(15,7), style='ggplot')
 ```
 
-![](images\outliers_mahalanobis_plot.png)
+![](images/outliers_mahalanobis_plot.png)
 
 <p><br></p>
 
@@ -144,7 +144,7 @@ df = pd.DataFrame({'Model': ['Modelo 1', 'Modelo 2', 'Modelo 3'],
 bl.accuracy_time_ML(df, figsize=(12, 6), cmap='RdYlBu', style='ggplot')
 ```
 
-![](images\accuracy_time_ML.png)
+![](images/accuracy_time_ML.png)
 
 <p><br></p>
 
@@ -159,6 +159,6 @@ df = pd.DataFrame({'Models': ['Model 1', 'Model 2', 'Model 3'],
 bl.accuracy_ML(df, figsize=(6, 4), cmap='RdYlBu', style='ggplot')
 ```
 
-![](images\accuracy_ML.png)
+![](images/accuracy_ML.png)
 
 <p><br></p>
