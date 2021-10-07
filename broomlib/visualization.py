@@ -93,7 +93,8 @@ def grid_displots(df, figsize=(12, 4), cols=3, bins=20, style='ggplot', fontsize
     """
     -----------
     Function description:
-    <>
+    Presents the distribution of each numerical variable.
+    Function works with numerical features.
     -----------
     Parameters:
     param df: The DataFrame
@@ -172,7 +173,8 @@ def grid_cat_bars(df, n_categories=10 ,figsize=(12, 4), cols=3, bins=20, style='
     """
     -----------
     Function description:
-    <>
+    Shows the distribution of each categorical variable.
+    Function works with categorical features.
     -----------
     Parameters:
     param df: The DataFrame
@@ -215,7 +217,8 @@ def grid_cat_target_bars(df, target, n_categories=10, figsize=(12, 4), cols=3, b
     """
     -----------
     Function description:
-    <>
+    Shows the distribution of each categorical variable compared with the categorical target.
+    Function works with categorical features.
     -----------
     Parameters:
     param df: The DataFrame
@@ -305,7 +308,7 @@ def outliers_mahalanobis_plot(x = None, extreme_points = 10, style = 'ggplot', f
     -----------
     Function description:
     Shows outliers of dataset. It compares Mahalanobis Distance of each point to Chi Square Distribution. 
-    Points with index are the most extreme points (outliers) in the dataset. 
+    Points with index are the most extreme ones (outliers) in the dataset. 
     Function works with numerical features.
     -----------
     Parameters:
@@ -320,7 +323,7 @@ def outliers_mahalanobis_plot(x = None, extreme_points = 10, style = 'ggplot', f
     Example:
     diabetes = datasets.load_diabetes()
     df = pd.DataFrame(diabetes.data)
-    outliers_mahalanobis(x = df)
+    outliers_mahalanobis_plot(x = df)
     """
 
     dif = x - np.mean(x)
