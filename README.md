@@ -27,7 +27,7 @@ This package has needs the following in order to work:
 Here is a brief overview of the functions available in this package. To further explore any of them, click on the link.
 
 ### Data Cleaning
-* <a href = show_all>show_all</a> 
+* <a href = #show_all>show_all</a> 
 * [data_report](#data_report) 
 * [how_missing](#how_missing)
 * [checking_duplicates](#checking_duplicates)
