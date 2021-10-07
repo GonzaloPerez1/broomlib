@@ -292,7 +292,7 @@ List of people that participated in this project:
 * [Laurent Jacquet](https://www.linkedin.com/in/laurent-jacquet-61b513102/)
 * [Nieves Noha Pascual](https://www.linkedin.com/in/nieves-noha-pascual)
 * [José Antonio Suárez Roig](https://www.linkedin.com/in/josé-antonio-suárez-roig)
-* [Olivier Kirstetter] (https://www.linkedin.com/in/olivier-kirstetter)
+* [Olivier Kirstetter](https://www.linkedin.com/in/olivier-kirstetter)
 
 
 
