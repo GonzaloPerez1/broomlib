@@ -49,6 +49,7 @@ Here is a brief overview of the functions available in this package. To further 
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
 
 <a name = 'show_all'></a>
+
 #### **show_all** *(`df = None`, `big_desc = False`)*
 Shows the info, number of rows and a big or small description with mode, mean, median, missings, categorical and numerical columns...
 
@@ -62,8 +63,8 @@ If `big_desc = True` returns Pandas Dataframe with a big description
 Otherwise returns the info, shape of each row and the pandas [describe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.describe.html) method.
 ****
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
-
 <a name = 'data_report'></a>
+
 #### **data_report** *(`df = None`)*
 Shows a small summary of the type, percentage of missings, unique values ad cardinality of each column.
 
@@ -77,6 +78,7 @@ Datafrane with the types, percentage of missings, unique values and cardinality 
 ***
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
 <a name = 'how_missing'></a>
+
 #### **how_missing** *(`df = None`, `threshold = 0.0`, `drop = False`)*
 Shows the percentage of missing values. Optional: establish a lower threshold for the values to be displayed and delete the columns meeting this criteria. 
 
@@ -92,6 +94,7 @@ Dataframe with the name of the columns and the percentage of missings in each.
 ***
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
 <a name = 'checking_duplicates'></a>
+
 #### **checking_duplicates** *(`df = None`, `col = None`)*
 Checks if there are duplicate values due to capitalization in a column of strings. (E.g: 'Spain' and 'spain')
 
@@ -107,6 +110,7 @@ The duplicate values. If none exist, it will display a message stating so.
 ***
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
 <a name = 'building_date'></a>
+
 #### **building_date** *(`year = None`, `month = None`, `day = None`, `df = None`)*
 
 Combines separate year, month and day columns into a single date column. 
@@ -125,6 +129,7 @@ Original dataframe with a new column `'Parsing date'` in the datetime64 numpy ty
 
 ### **Visualization**
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
+<a name = 'missing_bars'></a>
 
 #### **missing_bars** *(`data = None`, `figsize = (10,3)`, `style = 'ggplot'`)*
 
@@ -140,7 +145,9 @@ Presents a horizontal barplot with the percentage of missings in each feature.
 A figure
 ****
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
-#### **missing_heatmaps** *(`df = None`, `figsize = (12, 10)`, `style = 'ggplot'`, `cmap = 'RdYlBu'`)*
+<a name = 'missings_heatmaps'></a>
+
+#### **missings_heatmaps** *(`df = None`, `figsize = (12, 10)`, `style = 'ggplot'`, `cmap = 'RdYlBu'`)*
 Presents a heatmap visualizationof nullity correlation in the give. Dataframe. 
 
 **Parameters** 
@@ -154,6 +161,7 @@ Presents a heatmap visualizationof nullity correlation in the give. Dataframe.
 A figure.
 ***
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
+<a name = 'grid_displots'></a>
 #### **grid_displots** *(`df = None`, `figsize=(12, 4)`,` cols=3`, `bins=20`, `style='ggplot'`, `fontsize=12`, `y_space=0.35`)*
 
 Presents the distribution of each numerical variable. Will not work with categorical variables.
@@ -173,6 +181,8 @@ Presents the distribution of each numerical variable. Will not work with categor
 A figure.
 ***
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
+<a name = 'grid_boxplots'></a>
+
 #### **grid_boxplots** *(`df = None`, `figsize=(15, 15)`, `cols=3`, `bins=20`, `style='ggplot'`, `fontsize=12`, `y_space=0.35`, `whis=1.5`)*:
 
 Displays a seaborn boxplot visualization of each numeric column in the given dataframe. 
@@ -192,6 +202,8 @@ Displays a seaborn boxplot visualization of each numeric column in the given dat
 A figure.
 *** 
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
+<a name = 'grid_cat_bars'></a>
+
 #### **grid_cat_bars** *(`df = None`, `n_categories=10` ,`figsize=(12, 4)`, `cols=3`, `bins=20`, `style='ggplot'`, `fontsize=12`, `y_space=0.35`)*
 
 Shows the distribution of each categorical variable. It works with categorical features. 
@@ -211,6 +223,7 @@ Shows the distribution of each categorical variable. It works with categorical f
 A Figure
 ***
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
+<a name = 'grid_cat_target_bars'></a>
 
 #### **grid_cat_target_bars** *(`df = None`, `target = None`, `n_categories=10`, `figsize=(12, 4)`, `cols=3`, `bins=20`, `style='ggplot'`, `fontsize=12`, `y_space=0.35`)*
 
@@ -233,6 +246,8 @@ A Figure
 
 ***
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
+<a name = 'corr_bars'></a>
+
 #### **corr_bars** *(`data = None`, `threshold = None`, `figsize=(10, 3)`, `style='ggplot'`)*
 
 Displays a horizontal bar plor of the most correlated feature pairs and their correlation coeffcient. Works with numerical features. 
@@ -248,6 +263,7 @@ Displays a horizontal bar plor of the most correlated feature pairs and their co
 A Figure
 *** 
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
+<a name = 'outliers_mahalanobis_plot'></a>
 
 #### **outliers_mahalanobis_plot** *(`x = None`, `extreme_points = 10`, `style = 'ggplot'`, `figsize = (15,7)`)*:
 
