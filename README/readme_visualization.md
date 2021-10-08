@@ -28,7 +28,7 @@ Presents a ‘seaborn’ visualization of the nulls in the given DataFrame.
 from broomlib import visualization as vis
 import seaborn as sns
 titanic = sns.load_dataset("titanic")
-vis.missing_heatmap(titanic, figsize=(6, 4), style='ggplot', cmap='RdYlBu_r')
+missing_matrix(titanic, figsize=(10, 3), style='ggplot', cmap='PuBu')
 ```
 
 ![](images/missing_matrix.png)
@@ -152,7 +152,7 @@ vis.outliers_mahalanobis_plot(df, extreme_points=10, figsize=(15,7), style='ggpl
 Presents a visualization of accuracy and time data from machine learning models.
 ```
 from broomlib import visualization as vis
-df = pd.DataFrame({'Model': ['Modelo 1', 'Modelo 2', 'Modelo 3'], 
+df = pd.DataFrame({'Models': ['Modelo 1', 'Modelo 2', 'Modelo 3'], 
       'Accuracy': [90, 85, 95],
       'Time taken': [25, 30, 50]})
 
