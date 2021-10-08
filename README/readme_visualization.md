@@ -1,6 +1,6 @@
 # `brommlib visualization`
 
-There are 2 common parameters for broomlib visualizations
+There are 2 common parameters for broomlib visualizations:
 - `figsize`: a numeric tuple. This is usefull to adjust the size and proporcion of the image.
 - `style`: a matplotlib style. Use `plt.style.available` to find out available styles.
 
