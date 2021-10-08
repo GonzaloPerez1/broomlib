@@ -382,7 +382,7 @@ def outliers_mahalanobis_plot(x = None, extreme_points = 10, style = 'ggplot', f
         
         x = np.linspace(0,extreme.chi[np.argmax(dist)]+5,5)
         y = x
-        plt.plot(x, y, '-r', color = "blue")
+        plt.plot(x, y, '-r', color = "gray")
         plt.title(r'QQPlot: Mahalanobis $D^2$ vs Quantiles $\chi^2(number \ of \ variables)$')
         plt.xlabel(r'Quantiles of $\chi^2$')
         plt.ylabel('Mahalanobis Distance')
