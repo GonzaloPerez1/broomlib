@@ -26,6 +26,7 @@ def missing_bars(data,figsize=(10, 3), style='ggplot'):
     figure
     -----------
     Example:
+    import seaborn as sns
     titanic = sns.load_dataset("titanic")
     missing_bars(titanic, figsize=(10, 3), style='ggplot')
     """
@@ -70,6 +71,7 @@ def missing_heatmap(df, figsize=(12, 10), style='ggplot', cmap='RdYlBu'):
     figure
     -----------
     Example:
+    import seaborn as sns
     titanic = sns.load_dataset("titanic")
     missing_heatmap(titanic, figsize=(6, 4), style='ggplot', cmap='RdYlBu')
     """
@@ -104,6 +106,7 @@ def missing_matrix(df, figsize=(12, 12), style='ggplot', cmap='PuBu'):
     figure
     -----------
     Example:
+    import seaborn as sns
     titanic = sns.load_dataset("titanic")
     missing_matrix(titanic, figsize=(10, 3), style='ggplot', cmap='PuBu')
     '''
@@ -135,7 +138,8 @@ def grid_displots(df, figsize=(12, 4), cols=3, bins=20, style='ggplot', fontsize
     Returns:
     figure
     -----------
-    Example:        
+    Example:
+    import seaborn as sns
     tips = sns.load_dataset('tips')
     grid_displots(tips, figsize=(15, 3), cols=3, bins=20, fontsize=15, y_space=0.5, style='ggplot',)
     """
@@ -176,8 +180,9 @@ def grid_boxplots(df, figsize=(15, 15), cols=3, style='ggplot', fontsize=12, y_s
     figure
     -----------
     Example:
+    import seaborn as sns
     tips = sns.load_dataset('tips')
-    grid_boxplots(tips, figsize=(15, 3), cols=3, bins=20, fontsize=15, y_space=0.5, style='ggplot')
+    grid_boxplots(tips, figsize=(15, 3), cols=3, fontsize=15, y_space=0.5, style='ggplot')
     """
     df= df.loc[:, (df.dtypes == 'int64') | (df.dtypes == 'float64') | (df.dtypes == 'int32')]
     rows = int(np.ceil(float(df.shape[1]) / cols))
@@ -215,7 +220,8 @@ def grid_cat_bars(df, n_categories=10 ,figsize=(12, 4), cols=3, bins=20, style='
     Returns:
     figure
     -----------
-    Example:        
+    Example:
+    import seaborn as sns
     tips = sns.load_dataset('tips')
     grid_cat_bars(tips, figsize=(15, 10), cols=3, fontsize=15, y_space=0.35, style='ggplot',)
     """
@@ -259,7 +265,8 @@ def grid_cat_target_bars(df, target, n_categories=10, figsize=(12, 4), cols=3, b
     Returns:
     figure
     -----------
-    Example:       
+    Example:
+    import seaborn as sns
     titanic = sns.load_dataset("titanic")
     grid_cat_target_bars(titanic, target=titanic['survived'], figsize=(15, 10), cols=3, fontsize=15, y_space=0.55, style='ggplot')
     """
@@ -299,7 +306,8 @@ def corr_bars(data, threshold, figsize=(10, 3), style='ggplot'):
     Returns:
     figure
     -----------
-    Example:       
+    Example:
+    import seaborn as sns
     mpg = sns.load_dataset('mpg')
     corr_bars(mpg, threshold=0.6, figsize=(13, 6))
     """
@@ -327,12 +335,13 @@ def corr_bars(data, threshold, figsize=(10, 3), style='ggplot'):
 
 
 
-def outliers_mahalanobis_plot(x, extreme_points=10, figsize=(15,7), style='ggplot'):
+def outliers_mahalanobis_plot(x = None, extreme_points = 10, style = 'ggplot', figsize = (15,7)):
     """
     -----------
     Function description:
     Shows outliers of dataset. It compares Mahalanobis Distance of each point to Chi Square Distribution. 
-    Points with index are the most extreme ones (outliers) in the dataset. 
+    Points with index are the most extreme points (outliers) in the dataset. Straight line indicates how far 
+    are points from empirical distribution to theoretical one.
     Function works with numerical features.
     -----------
     Parameters:
@@ -345,11 +354,12 @@ def outliers_mahalanobis_plot(x, extreme_points=10, figsize=(15,7), style='ggplo
     figure
     -----------
     Example:
+    import pandas as pd
+    from sklearn import datasets
     diabetes = datasets.load_diabetes()
     df = pd.DataFrame(diabetes.data)
     outliers_mahalanobis_plot(df, extreme_points=10, figsize=(15,7), style='ggplot')
     """
-
     dif = x - np.mean(x)
     cov = np.cov(x.T)
     inv = sp.linalg.inv(cov)
@@ -370,10 +380,12 @@ def outliers_mahalanobis_plot(x, extreme_points=10, figsize=(15,7), style='ggplo
                        for i, txt in enumerate(extreme.index)]
         adjust_text(texto_puntos)
         
+        x = np.linspace(0,extreme.chi[np.argmax(dist)]+5,5)
+        y = x
+        plt.plot(x, y, '-r', color = "blue")
         plt.title(r'QQPlot: Mahalanobis $D^2$ vs Quantiles $\chi^2(number \ of \ variables)$')
         plt.xlabel(r'Quantiles of $\chi^2$')
         plt.ylabel('Mahalanobis Distance')
-    
     return plt.show()
 
  
