@@ -1,7 +1,7 @@
 # `broomlib visualization`
 
 There are 2 common parameters for broomlib visualizations:
-- `figsize`: a numeric tuple. This is usefull to adjust the size and proporcion of the image.
+- `figsize`: a numeric tuple. This is usefull to adjust the size and proportion of the image.
 - `style`: a matplotlib style. Use `plt.style.available` to find out available styles.
 
 <p><br></p>
@@ -28,7 +28,7 @@ Presents a ‘seaborn’ visualization of the nulls in the given DataFrame.
 from broomlib import visualization as vis
 import seaborn as sns
 titanic = sns.load_dataset("titanic")
-missing_matrix(titanic, figsize=(10, 3), style='ggplot', cmap='PuBu')
+vis.missing_matrix(titanic, figsize=(10, 3), style='ggplot', cmap='PuBu')
 ```
 
 ![](images/missing_matrix.png)
@@ -131,13 +131,14 @@ vis.corr_bars(mpg, threshold=0.6, figsize=(13, 6))
 
 
 ## `outliers_mahalanobis_plot`
-Shows outliers of dataset. It compares Mahalanobis Distance of each point to Chi Square Distribution. 
-Points with index are the most extreme ones (outliers) in the dataset. 
+Shows outliers of dataset. It compares Mahalanobis Distance of each point to Chi Square Distribution.
+Points with index are the most extreme ones (outliers) in the dataset.
 Function works with numerical features.
 
 ```
 from broomlib import visualization as vis
 from sklearn import datasets
+import pandas as pd
 diabetes = datasets.load_diabetes()
 df = pd.DataFrame(diabetes.data)
 vis.outliers_mahalanobis_plot(df, extreme_points=10, figsize=(15,7), style='ggplot')
