@@ -289,3 +289,43 @@ def detrending(df, value, frac):
     fig.suptitle('DETRENDING FUNCTION', y=0.95, fontsize=14)
     plt.show()
     return(df_c)
+
+
+
+def fill_missing(df, column, dropna=False, type_treatment=None):
+    """
+    -----------
+       Function description:
+        The function pick one DataFrame and the name of one column with mssings
+        , the user can decide how to treat that column. 
+        
+    -----------
+        Parameters:
+        <df> (Pandas DataFrame type): 
+                mandatory parameter. Dataframe  we want to check .
+        <column>(string):
+                name of the column that will be droped or filled
+        
+        <dropna> (boolean): Default value = False.
+                True if you want drop that colum.
+                
+        <type_treatment>(string):
+        
+                Can be: mean  --> for mean treatment
+                        mode  --> for mode treatment
+                        value --> for fill with that value
+    
+    -----------
+        Returns: Dataframe
+    
+    """
+    if dropna == True:
+        df = df.dropna(subset=[column])
+    else:
+        if type_treatment == 'mean':
+            df[column] = df[column].fillna(df[column].type_treatment())
+        elif type_treatment == 'mode':
+            df[column] = df[column].fillna(df[column].type_treatment()[0])
+        else:
+            df[column] = df[column].fillna(type_treatment)
+    return df
