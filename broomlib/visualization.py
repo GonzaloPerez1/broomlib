@@ -4,12 +4,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import scipy as sp
 from scipy.stats import chi2
-from .utils import *
 from sklearn import datasets
 from scipy.stats import chi2
 import statsmodels.api as sm
 from adjustText import adjust_text
-from sklearn import datasets
+from .utils import *
 
 
 def missing_bars(data,figsize=(10, 3), style='ggplot'):
@@ -27,6 +26,7 @@ def missing_bars(data,figsize=(10, 3), style='ggplot'):
     figure
     -----------
     Example:
+    import seaborn as sns
     titanic = sns.load_dataset("titanic")
     missing_bars(titanic, figsize=(10, 3), style='ggplot')
     """
@@ -55,7 +55,7 @@ def missing_bars(data,figsize=(10, 3), style='ggplot'):
 
 
 
-def missings_heatmap(df, figsize=(12, 10), style='ggplot', cmap='RdYlBu'):   
+def missing_heatmap(df, figsize=(12, 10), style='ggplot', cmap='RdYlBu'):   
     """
     -----------
     Function description:
@@ -71,8 +71,9 @@ def missings_heatmap(df, figsize=(12, 10), style='ggplot', cmap='RdYlBu'):
     figure
     -----------
     Example:
+    import seaborn as sns
     titanic = sns.load_dataset("titanic")
-    missings_heatmap(titanic, figsize=(6, 4), style='ggplot', cmap='RdYlBu')
+    missing_heatmap(titanic, figsize=(6, 4), style='ggplot', cmap='RdYlBu')
     """
     
     df = df.iloc[:, [i for i, n in enumerate(np.var(df.isnull(), axis='rows')) if n > 0]]
@@ -87,6 +88,35 @@ def missings_heatmap(df, figsize=(12, 10), style='ggplot', cmap='RdYlBu'):
         
     return plt.show()
 
+
+def missing_matrix(df, figsize=(12, 12), style='ggplot', cmap='PuBu'):
+    
+    '''
+    -----------
+    Function description:
+    Presents a ‘seaborn’ visualization of the nulls in the given DataFrame
+    -----------
+    Parameters:
+    param df(DataFrame): The DataFrame
+    param figsize(tuple): The size of the figure to display. This is a  ‘matplotlib’ parameter which defaults to (12, 12)
+    param style(str): The style of the figure to display. A ‘matplotlib’ parameter which defaults to ‘ggplot’
+    param cmap(str): What `matplotlib` colormap to use. Defaults to ‘PuBu’
+    -----------
+    Returns:
+    figure
+    -----------
+    Example:
+    import seaborn as sns
+    titanic = sns.load_dataset("titanic")
+    missing_matrix(titanic, figsize=(10, 3), style='ggplot', cmap='PuBu')
+    '''
+    
+    with plt.style.context(style):
+        fig = plt.figure(figsize=figsize)
+        ax = fig.gca()
+        ax = sns.heatmap(df.isnull(), cbar=False, cmap=cmap)
+        
+    return plt.show()
 
 
 def grid_displots(df, figsize=(12, 4), cols=3, bins=20, style='ggplot', fontsize=12, y_space=0.35):
@@ -108,7 +138,8 @@ def grid_displots(df, figsize=(12, 4), cols=3, bins=20, style='ggplot', fontsize
     Returns:
     figure
     -----------
-    Example:        
+    Example:
+    import seaborn as sns
     tips = sns.load_dataset('tips')
     grid_displots(tips, figsize=(15, 3), cols=3, bins=20, fontsize=15, y_space=0.5, style='ggplot',)
     """
@@ -129,7 +160,7 @@ def grid_displots(df, figsize=(12, 4), cols=3, bins=20, style='ggplot', fontsize
     return plt.show()
 
 
-def grid_boxplots(df, figsize=(15, 15), cols=3, bins=20, style='ggplot', fontsize=12, y_space=0.35, whis=1.5):
+def grid_boxplots(df, figsize=(15, 15), cols=3, style='ggplot', fontsize=12, y_space=0.35, whis=1.5):
     """
     -----------
     Function description:
@@ -139,19 +170,19 @@ def grid_boxplots(df, figsize=(15, 15), cols=3, bins=20, style='ggplot', fontsiz
     param df: The DataFrame
     param figsize(int): The size of the figure to display. This is a  ‘matplotlib’ parameter which defaults to (20, 12)
     param cols(int): number of plots displayed in parallel. 3 by default
-    param bins(int): defines the number of equal-width bins in the range. 20 by default
     param style(str): The style of the figure to display. A ‘matplotlib’ parameter which defaults to ‘ggplot’
     param fontsize(int): The figure's font size. This default to 12
     param y_space(float):space between rows
     param whis(float): The position of the whiskers
     The lower whisker is at the lowest datum above Q1 - whis*(Q3-Q1), and the upper whisker at the highest datum below Q3 + whis*(Q3-Q1), where Q1 and Q3 are the first and third quartiles. The default value of whis = 1.5 corresponds to Tukey's original definition of boxplots
-     -----------
+    -----------
     Returns:
     figure
     -----------
     Example:
+    import seaborn as sns
     tips = sns.load_dataset('tips')
-    grid_boxplots(tips, figsize=(15, 3), cols=3, bins=20, fontsize=15, y_space=0.5, style='ggplot')
+    grid_boxplots(tips, figsize=(15, 3), cols=3, fontsize=15, y_space=0.5, style='ggplot')
     """
     df= df.loc[:, (df.dtypes == 'int64') | (df.dtypes == 'float64') | (df.dtypes == 'int32')]
     rows = int(np.ceil(float(df.shape[1]) / cols))
@@ -189,7 +220,8 @@ def grid_cat_bars(df, n_categories=10 ,figsize=(12, 4), cols=3, bins=20, style='
     Returns:
     figure
     -----------
-    Example:        
+    Example:
+    import seaborn as sns
     tips = sns.load_dataset('tips')
     grid_cat_bars(tips, figsize=(15, 10), cols=3, fontsize=15, y_space=0.35, style='ggplot',)
     """
@@ -233,7 +265,8 @@ def grid_cat_target_bars(df, target, n_categories=10, figsize=(12, 4), cols=3, b
     Returns:
     figure
     -----------
-    Example:       
+    Example:
+    import seaborn as sns
     titanic = sns.load_dataset("titanic")
     grid_cat_target_bars(titanic, target=titanic['survived'], figsize=(15, 10), cols=3, fontsize=15, y_space=0.55, style='ggplot')
     """
@@ -267,26 +300,25 @@ def corr_bars(data, threshold, figsize=(10, 3), style='ggplot'):
     Parameters:
     param data: The DataFrame
     param threshold(float): cut off point for the value of the correlation coefficient which points out that there is a significant correlation between two features.
-    param figsize(tuple): The size of the figure to display. This is a  ‘matplotlib’ parameter which defaults to (12, 4)
-    param style(str): The style of the figure to display. A ‘matplotlib’ parameter which defaults to ‘ggplot’
+    param figsize(tuple): The size of the figure to display. This is a  'matplotlib' parameter which defaults to (12, 4)
+    param style(str): The style of the figure to display. A 'matplotlib' parameter which defaults to 'ggplot'
     -----------
     Returns:
     figure
     -----------
-    Example:       
+    Example:
+    import seaborn as sns
     mpg = sns.load_dataset('mpg')
-    corr_bars(mpg, 0.6, figsize= (13, 6))
+    corr_bars(mpg, threshold=0.6, figsize=(13, 6))
     """
 
-    threshold = threshold
     corr_orden = pd.DataFrame(data.corr().unstack().sort_values(ascending=False).drop_duplicates())
     corr_orden.rename({0 : 'Correlation'}, axis=1, inplace=True)
     corr_orden.reset_index(inplace=True)
-    corr_orden['label'] = corr_orden['level_0'] + ' + ' + corr_orden['level_0']
-    corr_orden
+    corr_orden['label'] = corr_orden['level_0'] + ' + ' + corr_orden['level_1']
     corr_orden['abs'] = abs(corr_orden['Correlation'])
-    corr_orden.sort_values(by='abs')
     corr_orden.drop(columns=['level_0', 'level_1'], inplace=True)
+    corr_orden.sort_values(by='abs', ascending=False, inplace=True, ignore_index=True)
     corr_orden = corr_orden[corr_orden['abs'] >= threshold]
     
     with plt.style.context(style):
@@ -308,7 +340,8 @@ def outliers_mahalanobis_plot(x = None, extreme_points = 10, style = 'ggplot', f
     -----------
     Function description:
     Shows outliers of dataset. It compares Mahalanobis Distance of each point to Chi Square Distribution. 
-    Points with index are the most extreme ones (outliers) in the dataset. 
+    Points with index are the most extreme points (outliers) in the dataset. Straight line indicates how far 
+    are points from empirical distribution to theoretical one.
     Function works with numerical features.
     -----------
     Parameters:
@@ -321,11 +354,12 @@ def outliers_mahalanobis_plot(x = None, extreme_points = 10, style = 'ggplot', f
     figure
     -----------
     Example:
+    import pandas as pd
+    from sklearn import datasets
     diabetes = datasets.load_diabetes()
     df = pd.DataFrame(diabetes.data)
-    outliers_mahalanobis_plot(x = df)
+    outliers_mahalanobis_plot(df, extreme_points=10, figsize=(15,7), style='ggplot')
     """
-
     dif = x - np.mean(x)
     cov = np.cov(x.T)
     inv = sp.linalg.inv(cov)
@@ -346,8 +380,86 @@ def outliers_mahalanobis_plot(x = None, extreme_points = 10, style = 'ggplot', f
                        for i, txt in enumerate(extreme.index)]
         adjust_text(texto_puntos)
         
+        x = np.linspace(0,extreme.chi[np.argmax(dist)]+5,5)
+        y = x
+        plt.plot(x, y, '-r', color = "blue")
         plt.title(r'QQPlot: Mahalanobis $D^2$ vs Quantiles $\chi^2(number \ of \ variables)$')
         plt.xlabel(r'Quantiles of $\chi^2$')
         plt.ylabel('Mahalanobis Distance')
+    return plt.show()
+
+ 
+def accuracy_time_ML(df, figsize=(12, 6), cmap='RdYlBu', style='ggplot'): 
+    """
+    -----------
+    Function description:
+    Presents a visualization of accuracy and time data from machine learning models
+    -----------
+    Parameters:
+    param df(DataFrame): The DataFrame>
+    param figsize(tuple): The size of the figure to display. This is a  ‘matplotlib’ parameter which defaults to (12, 12)
+    param style(str): The style of the figure to display. A ‘matplotlib’ parameter which defaults to ‘ggplot’
+    param cmap(str): What `matplotlib` colormap to use. Defaults to ‘RdYlBu’
+    -----------
+    Returns:
+    figure
+    -----------
+    Example:
+    df = pd.DataFrame({'Models': ['Model 1', 'Model 2', 'Model 3'], 
+          'Accuracy': [90, 85, 95],
+          'Time taken': [25, 30, 50]})    
+    'Models' is a list with the names of our models
+    'Time taken' is a list with the times taken by our models to complete the training, usually in seconds
+    'Acccuracy' is a list  with our models´s accuracy in our predictions, usually is a percentage
+    """
     
+    with plt.style.context(style):
+        fig, ax1 = plt.subplots(figsize=figsize)
+        ax1.set_title('Models Comparison: Accuracy and Time taken', fontsize=13)
+        color = 'tab:orange'
+        ax1.set_xlabel('Models', fontsize=13)
+        ax1.set_ylabel('Time taken', fontsize=13, color=color)
+        ax2 = sns.barplot(x='Models', y='Time taken', data = df, palette=cmap)
+        ax1.tick_params(axis='y')
+        ax2 = ax1.twinx()
+        color = 'tab:blue'
+        ax2.set_ylabel('Accuracy', fontsize=13, color=color)
+        ax2 = sns.lineplot(x='Models', y='Accuracy', data = df, sort=False, color=color)
+        ax2.tick_params(axis='y', color=color)
+        
+    return plt.show()
+
+
+
+def accuracy_ML(df, figsize=(6, 6), style='ggplot', cmap='RdYlBu'):
+    """
+    -----------
+    Function description:
+    Presents a visualization of accuracy given from machine learning models.
+    -----------
+    Parameters:
+    param df(DataFrame): The DataFrame>
+    param figsize(tuple): The size of the figure to display. This is a  ‘matplotlib’ parameter which defaults to (12, 12)
+    param style(str): The style of the figure to display. A ‘matplotlib’ parameter which defaults to ‘ggplot’
+    param cmap(str): What `matplotlib` colormap to use. Defaults to ‘RdYlBu’
+    -----------
+    Returns:
+    figure
+    -----------
+    Example:
+    df = pd.DataFrame({'Models': ['Model 1', 'Model 2', 'Model 3'], 
+          'Accuracy': [90, 85, 95]})    
+    'Models' is a list with the names of our models
+    'Acccuracy' is a list  with our models´s accuracy in our predictions, usually is a percentage
+    """
+    
+    with plt.style.context(style):
+        fig, ax1 = plt.subplots(figsize=figsize)
+        ax1.set_title('Models Comparison: Accuracy', fontsize=13)
+        ax1.set_xlabel('Models', fontsize=13)
+        color = 'tab:orange'
+        ax1.set_ylabel('Accuracy', fontsize=13, color=color)
+        ax1 = sns.lineplot(x='Models', y='Accuracy', data = df, sort=False, color=color)
+        ax1.tick_params(axis='y', color=color)
+        
     return plt.show()
