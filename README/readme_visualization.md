@@ -1,4 +1,4 @@
-# `brommlib visualization`
+# `broomlib visualization`
 
 There are 2 common parameters for broomlib visualizations:
 - `figsize`: a numeric tuple. This is usefull to adjust the size and proporcion of the image.
