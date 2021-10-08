@@ -1,6 +1,7 @@
 from .utils import *
 import pandas as pd
 import numpy as np
+from statsmodels.nonparametric.smoothers_lowess import lowess
 
 def show_all(df, big_desc = False):
     """
@@ -187,4 +188,144 @@ def building_date(year, month, day, df):
     
     df = df.drop(columns=[year, month, day])
     
+    return df
+
+
+
+def search_corr(df, threshold):
+    """
+    Search for correlations within the indicated dataframe based on the value that we put in the threshold
+    
+    Arguments:
+    
+        - df (Pandas DataFrame type): it is the name of the dataframe we want to search correlations
+        - threshold (float): it is the value of correlation from which we want to obtain results
+        
+    
+    If the function finds elements that exceed the indicated threshold, it indicates the total number of elements that exceed the threshold 
+    and their name in the form of a list
+    
+    """
+    
+    corr_matrix = df.corr().abs()
+    upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(np.bool))
+    corr_list = [column for column in corr_matrix.columns if any(upper[column] > threshold)]
+    return print("Total Elements:", len(corr_list), corr_list)
+
+
+
+def suggested_merge(df1, df2):
+    """
+    Compare a dataframe with another dataframe in search of columns in common and recommend which type of union according to its composition is the most appropriate
+    
+    Arguments:
+    
+        - df1 (Pandas DataFrame type): it is the name of the first dataframe we want to compare
+        - df2 (Pandas DataFrame type): it is the name of the second dataframe we want to compare
+        
+    If the function finds common columns, it indicates what they are and the type of union recommended.
+    Otherwise, indicate the type of union recommended for that case.
+    
+    """
+    list1=set(df1)
+    list2=set(df2)
+ 
+    final= list1 & list2
+    if len(final) > 0 :
+        print("There is {} matching items. Merge type recommended between DF: Inner join".format(len(final)))
+        print("Columns matching:", final)
+    else:
+        print("There is not Columns matching. Merge type recommended between DF: Left join or Right join ")
+        
+    
+    
+
+def detrending(df, value, frac):
+    """       
+    Function description:,
+            The function calculates the trend of an ordered and continuous property extracted from a column  
+            of a dataframe using the Lowess algorithm. It also calculates the residuals.
+            The function displays the three curves (original, trend, residual) and outputs them in a new dataframe 
+            Input data does not not have to be time-series but needs to be continuous and ordered. 
+            It can also contain missing values.,
+        -----------,
+            Parameters:
+            <df> (Pandas DataFrame type). 
+                    mandatory parameter. Dataframe with the column containing the property to be processed
+            
+            <value> (string). 
+                    mandatory parameter. Name of the column containing the property to be processed.
+                    
+            <frac>(float): {0.0 to 1.0}. 
+                    mandatory parameter. Smoothness of the trend. The higher its values the smoother the trend.
+   
+        -----------,
+            Returns: Dataframe,
+                    From the original dataframe, it returns a new dataframe containing the three following columns: 
+                    the original curve, the trend curve and the residual curve.
+  
+    """
+
+    df = df.reset_index()
+    df_c = df[[value]]
+    df_cf=df_c.bfill().ffill()
+    length=df_c.shape[0]
+    trend = pd.DataFrame(lowess(df_cf[value], np.arange(length), frac=frac)[:, 1], index=df_cf.index, columns=[value])
+
+    for i in range(0,length):
+        if df[value][i]*0==0:
+            df_c.loc[i, "TREND"]=trend.loc[i, value]
+        else:
+            df_c.loc[i, "TREND"]=None
+            
+    res=df_c[[value]]-trend
+
+    df_c[["RESID"]]=res
+
+    fig, axes = plt.subplots(3,1, figsize=(7, 7), sharex=True, dpi=120)
+    df[value].plot(ax=axes[0], color='k', title='ORIGINAL '+str(value), ylim=(df[value].min(),df[value].max()))
+    df_c["TREND"].plot(ax=axes[1],  color='k',title=str(value)+' TREND (with smoothness parameter ' + str(frac)+")", ylim=(df[value].min(),df[value].max()))
+    df_c["RESID"].plot(ax=axes[2],  color='k',title=str(value)+' RESIDUAL (with smoothness parameter ' + str(frac) +")")
+    fig.suptitle('DETRENDING FUNCTION', y=0.95, fontsize=14)
+    plt.show()
+    return(df_c)
+
+
+
+def fill_missing(df, column, dropna=False, type_treatment=None):
+    """
+    -----------
+       Function description:
+        The function pick one DataFrame and the name of one column with mssings
+        , the user can decide how to treat that column. 
+        
+    -----------
+        Parameters:
+        <df> (Pandas DataFrame type): 
+                mandatory parameter. Dataframe  we want to check .
+        <column>(string):
+                name of the column that will be droped or filled
+        
+        <dropna> (boolean): Default value = False.
+                True if you want drop that colum.
+                
+        <type_treatment>(string):
+        
+                Can be: mean  --> for mean treatment
+                        mode  --> for mode treatment
+                        value --> for fill with that value
+    
+    -----------
+        Returns: Dataframe
+    
+    """
+    if dropna == True:
+        df = df.dropna(subset=[column])
+    else:
+        if type_treatment == 'mean':
+            df[column] = df[column].fillna(df[column].type_treatment())
+        elif type_treatment == 'mode':
+            df[column] = df[column].fillna(df[column].type_treatment()[0])
+        else:
+            df[column] = df[column].fillna(type_treatment)
     return df
