@@ -8,7 +8,6 @@ from sklearn import datasets
 from scipy.stats import chi2
 import statsmodels.api as sm
 from adjustText import adjust_text
-from .utils import *
 
 
 def missing_bars(data,figsize=(10, 3), style='ggplot'):
