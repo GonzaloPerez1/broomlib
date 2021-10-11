@@ -19,7 +19,9 @@ This package has needs the following in order to work:
 * seaborn
 * scikit-learn
 * plotly
-* whatever else just add it here
+* pandas
+* numpy
+* scipy
 ***
 
 <a name = 'index'> </a>
@@ -248,7 +250,7 @@ titanic = sns.load_dataset("titanic")
 vis.missing_bars(titanic, figsize=(10, 3), style='ggplot')
 ```
 
-![](README/images/missing_bars.png)
+![](img/missing_bars.png)
 ****
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
 <a name = 'missings_heatmaps'></a>
@@ -275,7 +277,7 @@ titanic = sns.load_dataset("titanic")
 vis.missing_heatmap(titanic, figsize=(6, 4), style='ggplot', cmap='RdYlBu_r')
 ```
 
-![](README/images/missing_heatmap.png)
+![](img/missing_heatmap.png)
 ***
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
 <a name = 'missing_matrix'></a>
@@ -301,7 +303,7 @@ titanic = sns.load_dataset("titanic")
 missing_matrix(titanic, figsize=(10, 3), style='ggplot', cmap='PuBu')
 ```
 
-![](README/images/missing_matrix.png)
+![](img/missing_matrix.png)
 ***
 
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
@@ -333,7 +335,7 @@ tips = sns.load_dataset('tips')
 vis.grid_displots(tips, figsize=(15, 3), cols=3, bins=20, fontsize=15, y_space=0.5, style='ggplot')
 ```
 
-![](README/images/grid_displots.png)
+![](img/grid_displots.png)
 ***
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
 <a name = 'grid_boxplots'></a>
@@ -365,7 +367,7 @@ tips = sns.load_dataset('tips')
 vis.grid_boxplots(tips, figsize=(12, 3), cols=3, fontsize=15, y_space=0.5, style='ggplot')
 ```
 
-![](README/images/grid_boxplots.png)
+![](img/grid_boxplots.png)
 *** 
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
 <a name = 'grid_cat_bars'></a>
@@ -396,7 +398,7 @@ tips = sns.load_dataset('tips')
 vis.grid_cat_bars(tips, figsize=(12, 8), cols=2, fontsize=15, y_space=0.5, style='ggplot')
 ```
 
-![](README/images/grid_cat_bars.png)
+![](img/grid_cat_bars.png)
 
 
 ***
@@ -430,7 +432,7 @@ titanic = sns.load_dataset("titanic")
 vis.grid_cat_target_bars(titanic, target=titanic['survived'], figsize=(15, 12), cols=3, fontsize=15, y_space=0.55, style='ggplot')
 ```
 
-![](README/images/grid_cat_target_bars.png)
+![](img/grid_cat_target_bars.png)
 
 ***
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
@@ -458,7 +460,7 @@ mpg = sns.load_dataset('mpg')
 vis.corr_bars(mpg, threshold=0.6, figsize=(13, 6))
 ```
 
-![](README/images/corr_bars.png)
+![](img/corr_bars.png)
 *** 
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
 <a name = 'outliers_mahalanobis_plot'></a>
@@ -486,7 +488,7 @@ df = pd.DataFrame(diabetes.data)
 vis.outliers_mahalanobis_plot(df, extreme_points=10, figsize=(15,7), style='ggplot')
 ```
 
-![](README/images/outliers_mahalanobis_plot.png)
+![](img/outliers_mahalanobis_plot.png)
 
 ***
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
@@ -516,7 +518,7 @@ df = pd.DataFrame({'Models': ['Modelo 1', 'Modelo 2', 'Modelo 3'],
 vis.accuracy_time_ML(df, figsize=(12, 6), cmap='RdYlBu', style='ggplot')
 ```
 
-![](README/images/accuracy_time_ML.png)
+![](img/accuracy_time_ML.png)
 ***
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
 <a name = 'accuracy_ML'></a>
@@ -544,7 +546,7 @@ df = pd.DataFrame({'Models': ['Model 1', 'Model 2', 'Model 3'],
 vis.accuracy_ML(df, figsize=(6, 4), cmap='RdYlBu', style='ggplot')
 ```
 
-![](README/images/accuracy_ML.png)
+![](img/accuracy_ML.png)
 
 ### **Machine Learning**
 
