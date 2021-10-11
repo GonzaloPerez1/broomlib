@@ -282,17 +282,24 @@ def broomResample(X, y, sampling_strategy_o=0.1,
             import matplotlib.pyplot as plt
             import numpy as np
             from numpy import where
-
             X, y = make_classification(n_samples=10000, n_features=2, n_redundant=0,n_clusters_per_class=1, weights=[0.99], flip_y=0, random_state=1)
             counter = Counter(y)
             print(counter)
-
             for label, _ in counter.items():
                 row_ix = np.where(y == label)[0]
                 plt.scatter(X[row_ix, 0], X[row_ix, 1], label=str(label))
             plt.legend()
             plt.show()
-    '''
+
+
+            X_resampled, y_resampled = broomResample(X,y)
+            print('Resampled dataset samples per class', Counter(y_resampled))
+            for label,_ in counter.items():
+                row_ix = np.where(y_resampled == label)[0]
+                plt.scatter(X_resampled[row_ix, 0], X_resampled[row_ix, 1], label=str(label))
+            plt.legend()
+            plt.show()
+        '''
 
     over = SMOTE(sampling_strategy=sampling_strategy_o,
                  random_state=random_state,
