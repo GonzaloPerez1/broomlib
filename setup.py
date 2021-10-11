@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'broomlib',         # How you named your package folder (MyLib)
   packages = ['broomlib'],   # Chose the same as "name"
-  version = '0.3',      # Start with a small number and increase it with every change you make
+  version = '0.3.1',      # Start with a small number and increase it with every change you make
   license='MIT',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
   description = 'Library created by Data Science Class of June 2021',   # Give a short description about your library
   author = 'ds-jun21',                   # Type in your name
