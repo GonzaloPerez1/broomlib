@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 from statsmodels.nonparametric.smoothers_lowess import lowess
 
 def show_all(df, big_desc = False):
