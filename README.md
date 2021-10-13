@@ -176,25 +176,22 @@ Otherwise, it recommneds a left or right join.
 <a name = 'detrending'></a>
 
 #### **detrending** *(`df = None`, `value`, `frac`)*:
-The function calculates the trend of an ordered and continuous property extracted from a column of a dataframe using the Lowess algorithm. It also calculates the residuals.
-
-The function displays the three curves (original, trend, residual) and outputs them in a new dataframe. Input data does not not have to be time-series but needs to be continuous and ordered.
-
-It can also contain missing values.
+The function calculates the trend of a dataframe column numerical property using the Lowess algorithm. It also calculates its residuals.
+The function displays the three curves (original, trend, residual) and outputs them in a new dataframe.
+The input dataframe does not not have to be a time-series and the column of the numerical property to be processed can contain missing values.
 
 **Parameters:**
-* **df** (*Pandas DataFrame*):mandatory parameter. Dataframe with the column containing the property to be processed.
+* **df** (*Pandas DataFrame*): mandatory parameter. Dataframe containing the column of the numerical property to be processed.
 
-* **value** (*string*): mandatory parameter. Name of the column containing the property to be processed.
+* **value** (*string*): mandatory parameter. Name of the column of the numerical property to be processed.
         
 * **frac** (*float*) {0.0 to 1.0}: mandatory parameter. Smoothness of the trend. The higher the value the smoother the trend. 
 
 **Returns**
 
-Dataframe
+Figure, dataframe
 
-From the original dataframe, it returns a new dataframe containing the three following columns: 
-the original curve, the trend curve and the residual curve.
+It returns and plots a new dataframe containing the three following columns: the original curve, the trend curve and the residual curve.
 
 *** 
 <a href="#index"><p align="right" href="#index">Back to index</p></a>
