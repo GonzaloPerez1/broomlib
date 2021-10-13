@@ -292,7 +292,7 @@ def detrending(df, value, frac):
 
 
 
-def fill_missing(df, column, dropna=False, type_treatment=None):
+def fill_missing(df, column, dropna=False, type_treatment='mean'):
     """
     -----------
        Function description:
@@ -322,10 +322,12 @@ def fill_missing(df, column, dropna=False, type_treatment=None):
     if dropna == True:
         df = df.dropna(subset=[column])
     else:
-        if type_treatment == 'mean':
-            df[column] = df[column].fillna(df[column].type_treatment())
-        elif type_treatment == 'mode':
-            df[column] = df[column].fillna(df[column].type_treatment()[0])
+        if type_treatment== 'mean':
+            df[column] = df[column].fillna(df[column].mean())
+        elif type_treatment== 'mode':
+            df[column] = df[column].fillna(df[column].mode()[0])
+        elif type_treatment== 'median':
+            df[column] = df[column].fillna(df[column].median())
         else:
             df[column] = df[column].fillna(type_treatment)
     return df
